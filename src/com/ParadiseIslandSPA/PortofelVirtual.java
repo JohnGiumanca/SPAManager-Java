@@ -1,0 +1,84 @@
+package com.ParadiseIslandSPA;
+
+import java.util.*;
+
+public class PortofelVirtual 
+{	
+	private double bilant;
+	private Map<String, DetaliiProdus> chitanta;
+	
+	public PortofelVirtual()
+	{
+		bilant = 0;
+		chitanta = new HashMap<String, DetaliiProdus>();
+	}
+	
+	//Cojocaru Alex
+	//Dragos Giumanca
+	//Tapirdea Alexandru 5
+	
+	
+	
+	public void reset()
+	{
+		bilant = 0;
+		chitanta.clear();
+	}
+	
+	public Boolean adaugaBilant(List<DetaliiProdus> dpList)
+	{
+		System.out.println("size: " + chitanta.keySet().size());
+		
+		for(DetaliiProdus dpTmp : dpList)
+		{	
+			System.out.println(dpTmp.getCantitateProdus() + " " + dpTmp.getNumeProdus() + " "
+					+ dpTmp.getIdProdus() + " " + dpTmp.getPretProdus());
+			Double suma = dpTmp.getCantitateProdus() * dpTmp.getPretProdus();
+			
+			if(chitanta.containsKey(dpTmp.getIdProdus()))
+			{
+				chitanta.get(dpTmp.getIdProdus()).updateProdus(dpTmp.getCantitateProdus());	
+			}
+			else
+			{				
+				chitanta.put(dpTmp.getIdProdus(), dpTmp);				
+			}
+			
+				bilant += suma;			 	
+			
+		}
+		
+		return true; 
+	}
+	
+	public DetaliiProdus getProdus(String idProdus)
+	{
+		return chitanta.get(idProdus);
+	}
+	
+	public double getBilant()
+	{
+		return bilant;
+	}
+	
+	public boolean verifyProduct(String nume) {
+		if(chitanta.get(nume) == null)
+			return false;
+		else
+			return true;
+	}
+	
+	public List<DetaliiProdus> getChitanta()
+	{
+		List<DetaliiProdus> pcListTmp = new LinkedList<DetaliiProdus>(); 
+		
+		for(String idTmp : chitanta.keySet())
+		{
+			pcListTmp.add(chitanta.get(idTmp));
+		}
+		
+		return pcListTmp;
+	}
+	
+	
+}
